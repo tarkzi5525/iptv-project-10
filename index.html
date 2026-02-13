@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXUSIPTV - Premium IPTV">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>NEXUSIPTV - Stream Without Boundaries</title>
+  <style>
+    :root { --primary: #3B82F6; --dark: #0F172A; --slate: #64748B; --white: #F8FAFC; --gradient: linear-gradient(135deg, #3B82F6, #8B5CF6); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Manrope', sans-serif; background: var(--dark); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+    .diagonal-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, transparent 40%, rgba(59,130,246,0.1) 40%, rgba(139,92,246,0.1) 60%, transparent 60%); z-index: -1; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(15,23,42,0.8); backdrop-filter: blur(20px); z-index: 1000; padding: 1rem 0; }
+    .header-content { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.75rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.03em; }
+    .logo span { color: var(--primary); }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a { color: var(--slate); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+    nav a:hover { color: white; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.875rem 2rem; font-family: 'Manrope', sans-serif; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; text-decoration: none; transition: all 0.3s; border-radius: 8px; }
+    .btn-primary { background: var(--gradient); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59,130,246,0.4); }
+    .btn-secondary { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-secondary:hover { border-color: var(--primary); }
+    main { padding-top: 70px; }
+    .hero { min-height: 90vh; display: flex; align-items: center; padding: 6rem 0; position: relative; }
+    .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: linear-gradient(135deg, rgba(59,130,246,0.15), transparent); clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%); }
+    .hero-content { position: relative; z-index: 1; max-width: 600px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3); border-radius: 50px; font-size: 0.8rem; color: var(--primary); margin-bottom: 1.5rem; font-weight: 600; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
+    .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.1rem; color: var(--slate); margin-bottom: 2rem; max-width: 480px; }
+    .hero-buttons { display: flex; gap: 1rem; }
+    .hero-stats { display: flex; gap: 3rem; margin-top: 3rem; }
+    .stat-item h3 { font-size: 2rem; font-weight: 800; color: var(--primary); }
+    .stat-item p { font-size: 0.85rem; color: var(--slate); margin: 0; }
+    .diagonal-cards { position: absolute; top: 50%; right: 5%; transform: translateY(-50%); width: 450px; }
+    .d-card { background: rgba(30,41,59,0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem; margin-bottom: 1rem; transform: rotate(-2deg); transition: transform 0.3s; }
+    .d-card:nth-child(2) { transform: rotate(2deg); margin-left: 2rem; }
+    .d-card:hover { transform: rotate(0deg); }
+    .d-card h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .d-card p { font-size: 0.8rem; color: var(--slate); margin: 0; }
+    section { padding: 6rem 0; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 0.5rem; }
+    .section-header p { color: var(--slate); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .feature-card { background: rgba(30,41,59,0.5); border: 1px solid rgba(255,255,255,0.05); padding: 2rem; transition: all 0.3s; border-radius: 12px; }
+    .feature-card:hover { background: rgba(30,41,59,0.8); border-color: var(--primary); transform: translateY(-5px); }
+    .feature-icon { width: 50px; height: 50px; background: var(--gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+    .feature-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .feature-card p { color: var(--slate); font-size: 0.9rem; }
+    .pricing-section { background: linear-gradient(180deg, transparent, rgba(59,130,246,0.05)); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .pricing-card { background: rgba(30,41,59,0.5); border: 1px solid rgba(255,255,255,0.05); padding: 2.5rem; text-align: center; transition: all 0.3s; border-radius: 16px; }
+    .pricing-card:hover { border-color: var(--primary); }
+    .pricing-card.featured { border-color: var(--primary); background: rgba(59,130,246,0.1); }
+    .pricing-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .pricing-card .price { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 1rem 0; }
+    .pricing-card .price span { font-size: 1rem; color: var(--slate); }
+    .pricing-card .features { list-style: none; margin: 1.5rem 0; text-align: left; }
+    .pricing-card .features li { padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; color: var(--slate); }
+    .pricing-card .features li::before { content: '✓ '; color: var(--primary); }
+    .cta-section { text-align: center; padding: 5rem 2rem; background: var(--gradient); }
+    .cta-section h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+    .cta-section p { opacity: 0.9; margin-bottom: 2rem; }
+    footer { background: rgba(15,23,42,0.95); padding: 4rem 0 2rem; }
+    .footer-content { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; margin-bottom: 3rem; }
+    .footer-column h4 { font-size: 1rem; margin-bottom: 1rem; color: var(--primary); }
+    .footer-column ul { list-style: none; }
+    .footer-column li { margin-bottom: 0.5rem; }
+    .footer-column a { color: var(--slate); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+    .footer-column a:hover { color: white; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; text-align: center; color: var(--slate); font-size: 0.8rem; }
+    .whatsapp-float { position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; text-decoration: none; z-index: 999; }
+    @media (max-width: 1024px) { .diagonal-cards { display: none; } .features-grid, .pricing-grid { grid-template-columns: 1fr 1fr; } .footer-content { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .hero-buttons, .hero-stats { flex-direction: column; } .features-grid, .pricing-grid { grid-template-columns: 1fr; } nav { display: none; } .footer-content { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="diagonal-bg"></div>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="#" class="logo">NEXUS<span>IPTV</span></a>
+        <nav>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a href="#pricing" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">Premium IPTV Service</div>
+          <h1>Stream The <span>Future</span></h1>
+          <p>Experience premium entertainment with 15,000+ channels in HD and 4K. Anti-buffering technology ensures seamless streaming.</p>
+          <div class="hero-buttons">
+            <a href="#pricing" class="btn btn-primary">View Plans</a>
+            <a href="#contact" class="btn btn-secondary">Free Trial</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h3>15K+</h3>
+              <p>Channels</p>
+            </div>
+            <div class="stat-item">
+              <h3>4K</h3>
+              <p>Ultra HD</p>
+            </div>
+            <div class="stat-item">
+              <h3>99.9%</h3>
+              <p>Uptime</p>
+            </div>
+          </div>
+        </div>
+        <div class="diagonal-cards">
+          <div class="d-card">
+            <h4>15,000+ Channels</h4>
+            <p>Global entertainment</p>
+          </div>
+          <div class="d-card">
+            <h4>4K Ultra HD</h4>
+            <p>Cinema quality</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Why NEXUSIPTV</h2>
+          <p>Premium streaming experience</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📺</div>
+            <h3>Vast Selection</h3>
+            <p>15,000+ channels from around the world.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>4K Quality</h3>
+            <p>Stunning picture quality.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3>Anti-Buffer</h3>
+            <p>Smooth streaming always.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Multi-Device</h3>
+            <p>Up to 4 devices.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Catch-Up</h3>
+            <p>7-30 days replay.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Licensed</h3>
+            <p>Secure and legal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="pricing" class="pricing-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Choose Your Plan</h2>
+          <p>Flexible pricing for everyone</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>Standard</h3>
+            <div class="price">$9<span>/mo</span></div>
+            <ul class="features">
+              <li>HD Quality</li>
+              <li>1 Device</li>
+              <li>5,000+ Channels</li>
+              <li>EPG Guide</li>
+              <li>Catch-up 7 Days</li>
+            </ul>
+            <a href="#" class="btn btn-secondary">Select</a>
+          </div>
+          <div class="pricing-card featured">
+            <h3>Premium</h3>
+            <div class="price">$14<span>/mo</span></div>
+            <ul class="features">
+              <li>Full HD + 4K</li>
+              <li>2 Devices</li>
+              <li>10,000+ Channels</li>
+              <li>Extended EPG</li>
+              <li>Priority Support</li>
+            </ul>
+            <a href="#" class="btn btn-primary">Select</a>
+          </div>
+          <div class="pricing-card">
+            <h3>Ultra</h3>
+            <div class="price">$19<span>/mo</span></div>
+            <ul class="features">
+              <li>4K UHD + HDR</li>
+              <li>4 Devices</li>
+              <li>15,000+ Channels</li>
+              <li>Full EPG</li>
+              <li>Cloud DVR</li>
+            </ul>
+            <a href="#" class="btn btn-secondary">Select</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="cta-section">
+      <h2>Ready to Start?</h2>
+      <p>Get your free trial today</p>
+      <a href="#pricing" class="btn btn-secondary">Get Started</a>
+    </section>
+  </main>
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <a href="#" class="logo">NEXUS<span>IPTV</span></a>
+          <p>Premium IPTV service delivering thousands of channels.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Devices</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 NEXUSIPTV. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <a href="#" class="whatsapp-float">W</a>
+</body>
+</html>
